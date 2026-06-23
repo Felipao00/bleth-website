@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" fill="none">
+  <!-- Hexágono da Logo -->
+  <g transform="translate(40, 40)">
+    <polygon 
+      points="0,-30 26,-15 26,15 0,30 -26,15 -26,-15"
+      fill="none" 
+      stroke="#FFFFFF" 
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <polygon 
+      points="0,-16 13.86,-8 13.86,8 0,16 -13.86,8 -13.86,-8"
+      fill="#FFFFFF"
+    />
+  </g>
+  
+  <!-- Texto BLETH -->
+  <text 
+    x="85" 
+    y="52" 
+    fill="#FFFFFF" 
+    font-family="'Geist', 'Inter', sans-serif" 
+    font-size="36" 
+    font-weight="700" 
+    letter-spacing="8"
+  >
+    BLETH
+  </text>
+</svg>
