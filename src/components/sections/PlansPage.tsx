@@ -7,17 +7,12 @@ import {
   Star, 
   Zap, 
   Shield, 
-  Rocket, 
   Globe, 
-  Smartphone,
   Sparkles,
   ArrowRight,
   Crown,
-  Infinity,
   MessageCircle,
-  Clock,
   Server,
-  Headphones,
   ChevronDown
 } from 'lucide-react';
 import Button from '@/components/ui/Button';
@@ -35,6 +30,7 @@ export default function PlansPage() {
       originalPrice: '589,90',
       description: 'Ideal para começar sua presença digital',
       popular: false,
+      period: '',
       features: [
         'Site Institucional (One Page)',
         'Hospedagem 1 ano grátis',
@@ -62,6 +58,7 @@ export default function PlansPage() {
       originalPrice: '1.997',
       description: 'Para negócios que precisam de presença completa',
       popular: true,
+      period: '',
       features: [
         'Site Institucional (até 5 páginas)',
         'Hospedagem 1 ano grátis',
@@ -91,6 +88,7 @@ export default function PlansPage() {
       originalPrice: '3.997',
       description: 'Solução completa com e-commerce integrado',
       popular: false,
+      period: '',
       features: [
         'Site Completo (até 10 páginas)',
         'Hospedagem 1 ano grátis',
@@ -125,6 +123,7 @@ export default function PlansPage() {
       period: '/mês',
       description: 'Manutenção essencial para seu site',
       popular: false,
+      originalPrice: '',
       features: [
         'Atualizações de Segurança',
         'Backup Semanal',
@@ -132,7 +131,10 @@ export default function PlansPage() {
         'Suporte por Email',
         '1 hora de alterações/mês',
       ],
+      notIncluded: [],
       cta: 'Assinar Básico',
+      highlight: false,
+      badge: '',
       color: 'from-gray-500/20 to-gray-600/20',
     },
     {
@@ -141,6 +143,7 @@ export default function PlansPage() {
       period: '/mês',
       description: 'Manutenção completa com suporte dedicado',
       popular: true,
+      originalPrice: '',
       features: [
         'Atualizações de Segurança',
         'Backup Diário',
@@ -151,9 +154,11 @@ export default function PlansPage() {
         'Relatório Mensal',
         'Atualização de Conteúdo',
       ],
+      notIncluded: [],
       cta: 'Assinar Premium',
-      color: 'from-white/10 to-white/5',
+      highlight: false,
       badge: 'RECOMENDADO',
+      color: 'from-white/10 to-white/5',
     },
     {
       name: 'Enterprise',
@@ -161,6 +166,7 @@ export default function PlansPage() {
       period: '/mês',
       description: 'Solução completa para grandes projetos',
       popular: false,
+      originalPrice: '',
       features: [
         'Tudo do Premium',
         'Suporte 24/7 Prioritário',
@@ -172,9 +178,11 @@ export default function PlansPage() {
         'Consultoria Técnica',
         'SLA Garantido',
       ],
+      notIncluded: [],
       cta: 'Falar com Consultor',
-      color: 'from-purple-500/20 to-pink-500/20',
+      highlight: false,
       badge: 'EMPRESARIAL',
+      color: 'from-purple-500/20 to-pink-500/20',
     },
   ];
 
@@ -205,6 +213,8 @@ export default function PlansPage() {
     },
   ];
 
+  const currentPlans = activeTab === 'sites' ? sitePlans : maintenancePlans;
+
   return (
     <div className="min-h-screen bg-black">
       {/* Hero da página de planos */}
@@ -227,9 +237,6 @@ export default function PlansPage() {
               Invista no seu
               <span className="relative">
                 <span className="bg-gradient-to-r from-white to-white/40 bg-clip-text text-transparent"> futuro digital</span>
-                <svg className="absolute -bottom-2 left-0 w-full" height="4" viewBox="0 0 100 4">
-                  <line x1="0" y1="2" x2="100" y2="2" stroke="white" strokeWidth="1" opacity="0.3" />
-                </svg>
               </span>
             </h1>
             
@@ -267,169 +274,109 @@ export default function PlansPage() {
           </div>
 
           {/* Plans Grid */}
-          {activeTab === 'sites' ? (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {sitePlans.map((plan, index) => (
-                <motion.div
-                  key={plan.name}
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.15 }}
-                  className={`relative group ${
-                    plan.popular ? 'md:-mt-4 md:mb-4' : ''
-                  }`}
-                >
-                  {/* Popular badge */}
-                  {plan.popular && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20">
-                      <div className="bg-white text-black text-xs px-6 py-1.5 rounded-full font-semibold tracking-wider flex items-center gap-2">
-                        <Crown className="w-3 h-3" />
-                        {plan.badge}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Promo badge */}
-                  {plan.badge === 'PROMOÇÃO' && !plan.popular && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20">
-                      <div className="bg-red-500/20 border border-red-500/30 text-red-400 text-xs px-6 py-1.5 rounded-full font-semibold tracking-wider flex items-center gap-2">
-                        <Zap className="w-3 h-3" />
-                        {plan.badge}
-                      </div>
-                    </div>
-                  )}
-
-                  <div className={`relative rounded-3xl bg-gradient-to-br ${plan.color} border ${
-                    plan.popular ? 'border-white/20' : 'border-white/[0.05]'
-                  } p-8 md:p-10 h-full transition-all duration-500 hover:border-white/20`}>
-                    
-                    {/* Glow effect */}
-                    <div className={`absolute -inset-1 rounded-3xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 ${
-                      plan.popular ? 'bg-white/5' : 'bg-white/[0.02]'
-                    }`} />
-
-                    <div className="relative z-10">
-                      {/* Plan name */}
-                      <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
-                      <p className="text-white/40 text-sm mb-6">{plan.description}</p>
-
-                      {/* Price */}
-                      <div className="mb-8">
-                        {plan.originalPrice && (
-                          <span className="text-white/30 line-through text-sm mr-2">
-                            R$ {plan.originalPrice}
-                          </span>
-                        )}
-                        <div className="flex items-baseline gap-1">
-                          <span className="text-white/50 text-lg">R$</span>
-                          <span className="text-5xl md:text-6xl font-bold text-white">
-                            {plan.price}
-                          </span>
-                          {plan.period && (
-                            <span className="text-white/40 text-sm">{plan.period}</span>
-                          )}
-                        </div>
-                        {plan.badge === 'PROMOÇÃO' && (
-                          <p className="text-green-400 text-xs mt-1">Economia de R$ 200,00</p>
-                        )}
-                      </div>
-
-                      {/* Features */}
-                      <ul className="space-y-3 mb-8">
-                        {plan.features.map((feature, i) => (
-                          <li key={i} className="flex items-start gap-3 text-sm">
-                            <Check className="w-4 h-4 text-green-400 mt-0.5 flex-shrink-0" />
-                            <span className="text-white/60">{feature}</span>
-                          </li>
-                        ))}
-                        {plan.notIncluded?.map((feature, i) => (
-                          <li key={i} className="flex items-start gap-3 text-sm">
-                            <span className="w-4 h-4 flex items-center justify-center flex-shrink-0 mt-0.5">
-                              <span className="w-3 h-0.5 bg-white/20" />
-                            </span>
-                            <span className="text-white/20 line-through">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-
-                      {/* CTA */}
-                      <Button
-                        href={`https://wa.me/5511999999999?text=Olá! Tenho interesse no plano ${plan.name} - ${plan.name === 'Start' ? 'Promoção R$ 389,90' : 'R$ ' + plan.price}`}
-                        variant={plan.popular ? 'primary' : 'outline'}
-                        size="lg"
-                        className="w-full"
-                      >
-                        {plan.cta}
-                        <ArrowRight className="w-4 h-4" />
-                      </Button>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {currentPlans.map((plan, index) => (
+              <motion.div
+                key={plan.name}
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.15 }}
+                className={`relative group ${
+                  plan.popular ? 'md:-mt-4 md:mb-4' : ''
+                }`}
+              >
+                {/* Popular badge */}
+                {plan.popular && (
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20">
+                    <div className="bg-white text-black text-xs px-6 py-1.5 rounded-full font-semibold tracking-wider flex items-center gap-2">
+                      <Crown className="w-3 h-3" />
+                      {plan.badge}
                     </div>
                   </div>
-                </motion.div>
-              ))}
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {maintenancePlans.map((plan, index) => (
-                <motion.div
-                  key={plan.name}
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.15 }}
-                  className={`relative group ${
-                    plan.popular ? 'md:-mt-4 md:mb-4' : ''
-                  }`}
-                >
-                  {plan.popular && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20">
-                      <div className="bg-white text-black text-xs px-6 py-1.5 rounded-full font-semibold tracking-wider flex items-center gap-2">
-                        <Crown className="w-3 h-3" />
-                        {plan.badge}
-                      </div>
+                )}
+
+                {/* Promo badge */}
+                {plan.badge === 'PROMOÇÃO' && !plan.popular && (
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20">
+                    <div className="bg-red-500/20 border border-red-500/30 text-red-400 text-xs px-6 py-1.5 rounded-full font-semibold tracking-wider flex items-center gap-2">
+                      <Zap className="w-3 h-3" />
+                      {plan.badge}
                     </div>
-                  )}
+                  </div>
+                )}
 
-                  <div className={`relative rounded-3xl bg-gradient-to-br ${plan.color} border ${
-                    plan.popular ? 'border-white/20' : 'border-white/[0.05]'
-                  } p-8 md:p-10 h-full transition-all duration-500 hover:border-white/20`}>
-                    
-                    <div className="relative z-10">
-                      <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
-                      <p className="text-white/40 text-sm mb-6">{plan.description}</p>
+                {plan.badge === 'EMPRESARIAL' && !plan.popular && (
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20">
+                    <div className="bg-purple-500/20 border border-purple-500/30 text-purple-400 text-xs px-6 py-1.5 rounded-full font-semibold tracking-wider flex items-center gap-2">
+                      <Star className="w-3 h-3" />
+                      {plan.badge}
+                    </div>
+                  </div>
+                )}
 
-                      <div className="mb-8">
-                        <div className="flex items-baseline gap-1">
-                          <span className="text-white/50 text-lg">R$</span>
-                          <span className="text-5xl md:text-6xl font-bold text-white">
-                            {plan.price}
-                          </span>
+                <div className={`relative rounded-3xl bg-gradient-to-br ${plan.color} border ${
+                  plan.popular ? 'border-white/20' : 'border-white/[0.05]'
+                } p-8 md:p-10 h-full transition-all duration-500 hover:border-white/20`}>
+                  
+                  <div className={`absolute -inset-1 rounded-3xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 ${
+                    plan.popular ? 'bg-white/5' : 'bg-white/[0.02]'
+                  }`} />
+
+                  <div className="relative z-10">
+                    <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
+                    <p className="text-white/40 text-sm mb-6">{plan.description}</p>
+
+                    <div className="mb-8">
+                      {plan.originalPrice && (
+                        <span className="text-white/30 line-through text-sm mr-2">
+                          R$ {plan.originalPrice}
+                        </span>
+                      )}
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-white/50 text-lg">R$</span>
+                        <span className="text-5xl md:text-6xl font-bold text-white">
+                          {plan.price}
+                        </span>
+                        {plan.period && (
                           <span className="text-white/40 text-sm">{plan.period}</span>
-                        </div>
+                        )}
                       </div>
-
-                      <ul className="space-y-3 mb-8">
-                        {plan.features.map((feature, i) => (
-                          <li key={i} className="flex items-start gap-3 text-sm">
-                            <Check className="w-4 h-4 text-green-400 mt-0.5 flex-shrink-0" />
-                            <span className="text-white/60">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-
-                      <Button
-                        href={`https://wa.me/5511999999999?text=Olá! Tenho interesse no plano de manutenção ${plan.name} - R$ ${plan.price}/mês`}
-                        variant={plan.popular ? 'primary' : 'outline'}
-                        size="lg"
-                        className="w-full"
-                      >
-                        {plan.cta}
-                        <ArrowRight className="w-4 h-4" />
-                      </Button>
+                      {plan.badge === 'PROMOÇÃO' && (
+                        <p className="text-green-400 text-xs mt-1">Economia de R$ 200,00</p>
+                      )}
                     </div>
+
+                    <ul className="space-y-3 mb-8">
+                      {plan.features.map((feature, i) => (
+                        <li key={i} className="flex items-start gap-3 text-sm">
+                          <Check className="w-4 h-4 text-green-400 mt-0.5 flex-shrink-0" />
+                          <span className="text-white/60">{feature}</span>
+                        </li>
+                      ))}
+                      {plan.notIncluded.map((feature, i) => (
+                        <li key={i} className="flex items-start gap-3 text-sm">
+                          <span className="w-4 h-4 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <span className="w-3 h-0.5 bg-white/20" />
+                          </span>
+                          <span className="text-white/20 line-through">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <Button
+                      href={`https://wa.me/5511999999999?text=Olá! Tenho interesse no plano ${plan.name}`}
+                      variant={plan.popular ? 'primary' : 'outline'}
+                      size="lg"
+                      className="w-full"
+                    >
+                      {plan.cta}
+                      <ArrowRight className="w-4 h-4" />
+                    </Button>
                   </div>
-                </motion.div>
-              ))}
-            </div>
-          )}
+                </div>
+              </motion.div>
+            ))}
+          </div>
 
           {/* Garantia */}
           <motion.div
