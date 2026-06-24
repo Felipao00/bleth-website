@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useInView } from '@/hooks/useInView';
 import { fadeInUp } from '@/lib/animations';
 import Button from '@/components/ui/Button';
-import { Mail } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
 
 export default function CTA() {
   const { ref, isInView } = useInView();
@@ -12,7 +12,8 @@ export default function CTA() {
   return (
     <section id="contact" className="relative bg-black section-padding border-t border-white/[0.03]">
       <div className="container-bleth">
-        <motion.div          ref={ref}
+        <motion.div
+          ref={ref}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
           variants={fadeInUp}
@@ -28,12 +29,12 @@ export default function CTA() {
           </p>
 
           <Button
-            href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'contato@bleth.com.br'}`}
+            href="https://wa.me/5585998246348?text=Olá! Gostaria de realizar um orçamento para um projeto!"
             variant="primary"
             size="lg"
           >
-            <Mail className="w-5 h-5" />
-            Entrar em Contato
+            <MessageCircle className="w-5 h-5" />
+            Falar no WhatsApp
           </Button>
         </motion.div>
       </div>

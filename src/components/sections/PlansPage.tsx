@@ -13,11 +13,12 @@ import {
   Crown,
   MessageCircle,
   Server,
-  ChevronDown
+  ChevronDown,
+  CalendarDays,
+  Clock,
+  MessageSquare
 } from 'lucide-react';
 import Button from '@/components/ui/Button';
-import Image from 'next/image';
-import Link from 'next/link';
 
 export default function PlansPage() {
   const [activeTab, setActiveTab] = useState<'sites' | 'manutencao'>('sites');
@@ -523,7 +524,7 @@ export default function PlansPage() {
         </div>
       </section>
 
-      {/* CTA Final */}
+      {/* CTA Final - Agendamento */}
       <section className="relative py-20 border-t border-white/[0.03]">
         <div className="container-bleth text-center">
           <motion.div
@@ -531,29 +532,100 @@ export default function PlansPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
-              Vamos criar algo incrível?
+            {/* Ícone de calendário */}
+            <motion.div
+              animate={{ 
+                rotateY: [0, 360],
+              }}
+              transition={{ 
+                duration: 8,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+              className="mb-8 inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/[0.02] border border-white/[0.08]"
+            >
+              <CalendarDays className="w-10 h-10 text-white/60" />
+            </motion.div>
+
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
+              Agende uma Reunião
             </h2>
-            <p className="text-white/40 mb-8 max-w-xl mx-auto">
-              Entre em contato para um orçamento personalizado ou tire suas dúvidas.
+            
+            <p className="text-white/40 mb-4 max-w-xl mx-auto text-lg">
+              Escolha o melhor dia e horário para conversarmos sobre seu projeto.
             </p>
+
+            {/* Destaque */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.02] border border-white/[0.05] mb-8">
+              <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+              <span className="text-white/30 text-sm">Reunião gratuita • 30 minutos</span>
+            </div>
+
+            {/* Cards de benefícios */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-2xl mx-auto mb-10">
+              {[
+                { icon: 'CalendarDays', title: 'Escolha o dia', desc: 'Selecione a data que preferir' },
+                { icon: 'Clock', title: 'Defina o horário', desc: 'No melhor momento para você' },
+                { icon: 'MessageSquare', title: 'Conversamos', desc: 'Entenda tudo sobre seu projeto' },
+              ].map((item, i) => {
+                const IconComponent = (() => {
+                  switch(item.icon) {
+                    case 'CalendarDays': return <CalendarDays className="w-5 h-5 text-white/60" />;
+                    case 'Clock': return <Clock className="w-5 h-5 text-white/60" />;
+                    case 'MessageSquare': return <MessageSquare className="w-5 h-5 text-white/60" />;
+                    default: return <CalendarDays className="w-5 h-5 text-white/60" />;
+                  }
+                })();
+
+                return (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                    className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05]"
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-white/[0.03] border border-white/[0.05] flex items-center justify-center mb-3">
+                      {IconComponent}
+                    </div>
+                    <h4 className="text-white/80 text-sm font-semibold mb-1">{item.title}</h4>
+                    <p className="text-white/30 text-xs">{item.desc}</p>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            {/* Botões */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
-                href="https://wa.me/5511999999999"
+                href="https://calendly.com/rivalidade0/consultoria-bleth"
                 variant="primary"
                 size="lg"
               >
-                <MessageCircle className="w-5 h-5" />
-                Falar no WhatsApp
+                <CalendarDays className="w-5 h-5" />
+                Agendar Reunião
               </Button>
               <Button
-                href="mailto:contato@bleth.com.br"
+                href="https://wa.me/5585998246348"
                 variant="outline"
                 size="lg"
               >
-                Enviar Email
+                <MessageCircle className="w-5 h-5" />
+                WhatsApp
               </Button>
             </div>
+
+            {/* Garantia */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5 }}
+              className="mt-6 text-white/20 text-xs"
+            >
+              Sem compromisso • Sem custo • Você escolhe o melhor horário
+            </motion.p>
           </motion.div>
         </div>
       </section>
