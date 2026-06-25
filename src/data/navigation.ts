@@ -14,20 +14,8 @@ export const socialLinks: SocialLink[] = [
   {
     id: 'instagram',
     label: 'Instagram',
-    href: process.env.NEXT_PUBLIC_INSTAGRAM_URL || '#',
+    href: 'https://www.instagram.com/blethcompany?igsh=MXF2bGJzMWg4a3F5eg%3D%3D&utm_source=qr',
     icon: 'Instagram',
-  },
-  {
-    id: 'github',
-    label: 'GitHub',
-    href: process.env.NEXT_PUBLIC_GITHUB_URL || '#',
-    icon: 'Github',
-  },
-  {
-    id: 'discord',
-    label: 'Discord',
-    href: process.env.NEXT_PUBLIC_DISCORD_URL || '#',
-    icon: 'MessageCircle',
   },
   {
     id: 'email',

@@ -55,7 +55,7 @@ export default function PlansPage() {
     },
     {
       name: 'Pro',
-      price: '1.497',
+      price: '899,90',
       originalPrice: '1.997',
       description: 'Para negócios que precisam de presença completa',
       popular: true,
@@ -80,7 +80,7 @@ export default function PlansPage() {
       ],
       cta: 'Quero Este Plano',
       highlight: true,
-      badge: 'MAIS VENDIDO',
+      badge: 'MAIS POPULAR',
       color: 'from-white/10 to-white/5',
     },
     {

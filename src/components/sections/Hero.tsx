@@ -128,22 +128,6 @@ export default function Hero() {
           </motion.div>
         </div>
       </div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, y: [0, 10, 0] }}
-        transition={{
-          opacity: { delay: 1.5, duration: 0.5 },
-          y: { duration: 2, repeat: Infinity, ease: 'easeInOut' },
-        }}
-      >
-        <div className="flex flex-col items-center gap-2">
-          <span className="text-xs text-white/20 font-mono tracking-widest">SCROLL</span>
-          <ArrowDown className="w-4 h-4 text-white/30" />
-        </div>
-      </motion.div>
     </section>
   );
 }
