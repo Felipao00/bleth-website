@@ -35,7 +35,7 @@ export default function PlansPage() {
       features: [
         'Site Institucional (One Page)',
         'Hospedagem 1 ano grátis',
-        'Domínio .com.br 1 ano',
+        'Domínio .online 1 ano',
         'Design Responsivo',
         'SSL Grátis',
         'SEO Básico',
@@ -92,7 +92,7 @@ export default function PlansPage() {
       period: '',
       features: [
         'Site Completo (até 10 páginas)',
-        'Hospedagem 1 ano grátis',
+        'Hospedagem 2 ano grátis',
         'Domínio .com.br 1 ano',
         'Design Exclusivo Premium',
         'SSL Grátis',
